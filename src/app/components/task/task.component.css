@@ -1,0 +1,57 @@
+.card.task-card {
+    transition: all 0.2s ease-in-out;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  .card.task-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .form-control,
+  .form-select {
+    border-radius: 8px;
+  }
+  
+  .btn-group button {
+    margin-right: 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #f5c6cb;
+  }
+  
+  textarea.form-control,
+  input.form-control {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .ms-3 {
+    margin-left: 1rem;
+  }
+  
+  .card-title {
+    margin-bottom: 0.5rem; 
+  }
+  
+  .badge {
+    margin-left: 10px;
+  }
+  
+  .mt-4 {
+    margin-top: 1.5rem;
+  }
+  

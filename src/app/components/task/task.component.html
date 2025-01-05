@@ -1,0 +1,90 @@
+<div class="card task-card shadow border-0 rounded mb-3" style="max-width: 100%; overflow: hidden;">
+  <div class="card-body">
+    <div class="d-flex mb-3">
+
+      <div
+        class="rounded-circle bg-light justify-content-center align-items-center me-3"
+        style="width: 50px; height: 50px; overflow: hidden;">
+        @if (user().user_metadata['avatar_url']) {
+          <img
+            [src]="user().user_metadata['avatar_url']"
+            alt="User Avatar"
+            class="img-fluid"
+            style="object-fit: cover; width: 50px; height: 50px;"
+          />
+        } @else {
+          <i class="bi bi-person text-muted" style="font-size: 1.5rem;"></i>
+        }
+      </div>
+
+      <div class="flex-grow-1">
+
+        @if (isEditing) {
+          <input
+            type="text"
+            [(ngModel)]="task().title"
+            class="form-control form-control-sm border-0 shadow-sm"
+            placeholder="Enter task title"
+            style="font-weight: bold; font-size: 1rem; color: #333; margin-bottom: 0.5rem;"
+          />
+        } @else {
+          <h6 class="card-title mb-0 text-truncate" style="font-weight: bold; font-size: 1rem; color: #333;">
+            {{ task().title }}
+          </h6>
+        }
+      </div>
+
+      
+    </div>
+    @if (isEditing) {
+      <textarea
+        [(ngModel)]="task().description"
+        class="form-control form-control-sm border-0 shadow-sm"
+        placeholder="Enter task description"
+        style="font-size: 0.9rem; color: #555; margin-bottom: 1rem;">
+      </textarea>
+    } @else {
+      <p class="card-text text-muted mb-2" style="font-size: 0.9rem; color: #555;">{{ task().description }}</p>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <div class="btn-group">
+        <button
+          class="btn btn-sm border-0 px-3 no-hover"
+          [ngClass]="{
+            'bg-success text-white': isEditing
+          }"
+          (click)="toggleEditing()"
+          title="Edit Task"
+          aria-label="Edit Task">
+          @if(!isEditing) {
+            <i class="bi" style="font-size: 1em; font-weight: bolder;" class= "bi-pencil text-danger"></i>
+          } @else {
+            save
+          }
+        </button>
+        <button
+          class="btn btn-outline-danger btn-sm border-0 px-3"
+          (click)="deleteTask()"
+          [disabled]="isEditing"
+          title="Delete Task"
+          aria-label="Delete Task">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+
+      <select
+        class="form-select form-select-sm border-0 shadow-sm"
+        style="width: auto; background-color: #f8f9fa; border-radius: 8px;"
+        [(ngModel)]="task().status"
+        (change)="updateTaskStatus()"
+        [disabled]="isEditing">
+        @for (s of statuses; track s) {
+          <option [value]="s">
+            {{ s | titlecase }}
+          </option>
+        }
+      </select>
+    </div>
+  </div>
+</div>

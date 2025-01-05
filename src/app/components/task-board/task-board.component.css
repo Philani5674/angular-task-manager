@@ -1,0 +1,80 @@
+.minimized {
+    width: 58px;
+    overflow: hidden;
+    transition: width 2s;
+
+    h5 {
+        display: none;
+    }
+    app-task {
+        display: none;
+    }
+
+    .task-column {
+        padding: 0 !important;
+    }
+}
+
+.container-fluid {
+    height: 100vh;
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.display-3 {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+.text-muted {
+    font-size: 1.25rem;
+}
+
+.btn-light {
+    background-color: #fff;
+    color: #333;
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+    background-color: #e6e6e6;
+}
+
+.btn-outline-danger {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+}
+
+.task-column {
+    transition: transform 0.3s ease;
+}
+
+.task-column:hover {
+    transform: translateY(-5px);
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 767px) {
+    .display-3 {
+        font-size: 2.5rem;
+    }
+}
+
+app-rubiks-cube {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+

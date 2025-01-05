@@ -1,0 +1,84 @@
+<div *ngIf="!user" class="container-fluid p-0">
+    <div class="row min-vh-100 d-flex justify-content-center align-items-center bg-primary text-white">
+      <div class="col-12 col-md-6 text-center p-5">
+        <h1 class="display-3 mb-4">Task Manager</h1>
+        <p class="lead mb-4">Stay organized, manage tasks, and boost productivity with Task Manager.</p>
+        <button (click)="signIn()" class="btn btn-light btn-lg px-4 py-2">
+          <i class="bi bi-google"></i> Sign in with Google
+        </button>
+        <app-rubiks-cube/>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="user" class="container-fluid p-4">
+    <div class="row mb-4">
+      <div class="col d-flex justify-content-between align-items-center">
+        <h1 class="h3 text-primary">Task Manager</h1>
+        <div>
+          <button (click)="signOut()" class="btn btn-outline-danger btn-sm">
+            <i class="bi bi-box-arrow-right"></i> Sign out
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mb-4">
+      <div class="col">
+        <button class="btn btn-success btn-sm" (click)="showNewTaskModal()">
+          <i class="bi bi-plus-lg"></i> New Task
+        </button>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div *ngFor="let status of statuses()" [ngClass]="{ 'minimized': !status.opened }" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="task-column p-3 border rounded shadow-sm">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">{{ status.title | titlecase }}</h5>
+            <button class="btn btn-outline-secondary btn-sm" (click)="toggleStatus(status.title)">
+              <i class="bi bi-arrow-left-right"></i>
+            </button>
+          </div>
+          <div class="task-list">
+            <app-task *ngFor="let task of getTasksByStatus(status.title)" [task]="task" [user]="user" (loadTask)="loadTasks()"></app-task>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="modal fade" [ngClass]="{ 'show': showModal }" tabindex="-1" aria-hidden="true" [style.display]="showModal ? 'block' : 'none'">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ editingTask ? 'Edit Task' : 'New Task' }}</h5>
+            <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control form-control-lg" [(ngModel)]="currentTask.title" name="title" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control form-control-lg" [(ngModel)]="currentTask.description" name="description" rows="4" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-select form-select-lg" [(ngModel)]="currentTask.status" name="status" required>
+                  <option *ngFor="let status of statuses()" [value]="status.title">{{ status.title | titlecase }}</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="saveTask()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
