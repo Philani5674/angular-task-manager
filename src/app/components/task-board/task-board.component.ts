@@ -25,9 +25,6 @@ export class TaskBoardComponent implements OnInit {
 
   constructor(private supabase: SupabaseService) {
 
-    effect(() => {
-      console.log(this.statuses());
-    });
   }
 
   ngOnInit() {
@@ -54,7 +51,6 @@ export class TaskBoardComponent implements OnInit {
     } catch (error) {
       console.error('Error loading tasks:', error);
     }
-    console.log(this.user?.user_metadata['full_name']);
   }
 
   getTasksByStatus(status: string) {
@@ -83,7 +79,6 @@ export class TaskBoardComponent implements OnInit {
   }
 
   async saveTask() {
-    console.log('Saving task:', this.currentTask);
     try {
       if (this.editingTask) {
         await this.supabase.updateTask(this.editingTask.id, this.currentTask);
@@ -103,17 +98,6 @@ export class TaskBoardComponent implements OnInit {
       await this.loadTasks();
     } catch (error) {
       console.error('Error updating task status:', error);
-    }
-  }
-
-  async deleteTask(id: string) {
-    if (confirm('Are you sure you want to delete this task?')) {
-      try {
-        await this.supabase.deleteTask(id);
-        await this.loadTasks();
-      } catch (error) {
-        console.error('Error deleting task:', error);
-      }
     }
   }
 
