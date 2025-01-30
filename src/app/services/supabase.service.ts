@@ -52,7 +52,10 @@ export class SupabaseService {
   async createTask(task: Task) {
     const { data, error } = await this.supabase
       .from('tasks')
-      .insert([task])
+      .insert([{
+        ...task,
+        'end_date': new Date(new Date().getTime() + 1 * 60 * 60 * 1000) // Add 1 hour
+      }])
       .select()
       .single();
     

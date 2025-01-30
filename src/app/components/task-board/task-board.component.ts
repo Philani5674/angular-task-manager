@@ -22,6 +22,7 @@ export class TaskBoardComponent implements OnInit {
   showModal = false;
   editingTask: any = null;
   currentTask: Task = this.getEmptyTask();
+  currentView = signal<'board'| 'calendar'>('board');
 
   constructor(private supabase: SupabaseService) {
 
@@ -109,6 +110,10 @@ export class TaskBoardComponent implements OnInit {
 
   toggleStatus(title: string) {
     this.statuses.update(statuses =>  statuses.map(s => s.title === title ? {...s, opened: !s.opened} : s));
+  }
+
+  toggleView(view: 'board' | 'calendar') {
+    this.currentView.set(view);
   }
   
 }
