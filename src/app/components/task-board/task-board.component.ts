@@ -9,11 +9,10 @@ import { RubiksCubeComponent } from "../rubiks-cube/rubiks-cube.component";
 
 
 @Component({
-  selector: 'app-task-board',
-  standalone: true,
-  imports: [FormsModule, TaskComponent, CommonModule, RubiksCubeComponent],
-  templateUrl: "./task-board.component.html",
-  styleUrls: ["./task-board.component.css"],
+    selector: 'app-task-board',
+    imports: [FormsModule, TaskComponent, CommonModule, RubiksCubeComponent],
+    templateUrl: "./task-board.component.html",
+    styleUrls: ["./task-board.component.css"]
 })
 export class TaskBoardComponent implements OnInit {
   user: User | null = null;

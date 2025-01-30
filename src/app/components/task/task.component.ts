@@ -6,12 +6,10 @@ import { User } from '@supabase/supabase-js';
 
 
 @Component({
-  selector: 'app-task', 
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './task.component.html',
-  styleUrls: ['./task.component.css'],
- 
+    selector: 'app-task',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './task.component.html',
+    styleUrls: ['./task.component.css']
 })
 export class TaskComponent {
   task = input.required<Task>();

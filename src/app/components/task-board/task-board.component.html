@@ -1,4 +1,5 @@
-<div *ngIf="!user" class="container-fluid p-0">
+@if (!user) {
+  <div class="container-fluid p-0">
     <div class="row min-vh-100 d-flex justify-content-center align-items-center bg-primary text-white">
       <div class="col-12 col-md-6 text-center p-5">
         <h1 class="display-3 mb-4">Task Manager</h1>
@@ -10,8 +11,10 @@
       </div>
     </div>
   </div>
+}
 
-  <div *ngIf="user" class="container-fluid p-4">
+@if (user) {
+  <div class="container-fluid p-4">
     <div class="row mb-4">
       <div class="col d-flex justify-content-between align-items-center">
         <h1 class="h3 text-primary">Task Manager</h1>
@@ -22,15 +25,13 @@
         </div>
       </div>
     </div>
-  
     <div class="row mb-4">
       <div class="col d-flex justify-content-between align-items-center">
         <button class="btn btn-success btn-sm" (click)="showNewTaskModal()">
           <i class="bi bi-plus-lg"></i> New Task
         </button>
-
         <div class="btn-group">
-          <button class="btn btn-outline-secondary btn-sm"> 
+          <button class="btn btn-outline-secondary btn-sm">
             <i class="bi bi-grid-3x3"></i>
           </button>
           <button class="btn btn-outline-secondary btn-sm" >
@@ -39,23 +40,25 @@
         </div>
       </div>
     </div>
-  
     <div class="row">
-      <div *ngFor="let status of statuses()" [ngClass]="{ 'minimized': !status.opened }" class="col-lg-3 col-md-4 col-sm-6 mb-4">
-        <div class="task-column p-3 border rounded shadow-sm">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="mb-0">{{ status.title | titlecase }}</h5>
-            <button class="btn btn-outline-secondary btn-sm" (click)="toggleStatus(status.title)">
-              <i class="bi bi-arrow-left-right"></i>
-            </button>
-          </div>
-          <div class="task-list">
-            <app-task *ngFor="let task of getTasksByStatus(status.title)" [task]="task" [user]="user" (loadTask)="loadTasks()"></app-task>
+      @for (status of statuses(); track status) {
+        <div [ngClass]="{ 'minimized': !status.opened }" class="col-lg-3 col-md-4 col-sm-6 mb-4">
+          <div class="task-column p-3 border rounded shadow-sm">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">{{ status.title | titlecase }}</h5>
+              <button class="btn btn-outline-secondary btn-sm" (click)="toggleStatus(status.title)">
+                <i class="bi bi-arrow-left-right"></i>
+              </button>
+            </div>
+            <div class="task-list">
+              @for (task of getTasksByStatus(status.title); track task) {
+                <app-task [task]="task" [user]="user" (loadTask)="loadTasks()"></app-task>
+              }
+            </div>
           </div>
         </div>
-      </div>
+      }
     </div>
-  
     <div class="modal fade" [ngClass]="{ 'show': showModal }" tabindex="-1" aria-hidden="true" [style.display]="showModal ? 'block' : 'none'">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -76,7 +79,9 @@
               <div class="mb-3">
                 <label class="form-label">Status</label>
                 <select class="form-select form-select-lg" [(ngModel)]="currentTask.status" name="status" required>
-                  <option *ngFor="let status of statuses()" [value]="status.title">{{ status.title | titlecase }}</option>
+                  @for (status of statuses(); track status) {
+                    <option [value]="status.title">{{ status.title | titlecase }}</option>
+                  }
                 </select>
               </div>
             </form>
@@ -89,5 +94,5 @@
       </div>
     </div>
   </div>
-  
-  
+}
+
